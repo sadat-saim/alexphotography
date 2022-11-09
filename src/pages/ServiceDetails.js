@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const ServiceDetails = () => {
   const service = useLoaderData();
   const { details, name, picture, price } = service;
-  console.log(service);
+  const { names } = useContext(AuthContext);
+  console.log(names);
   return (
     <div>
       <h1 className="text-4xl font-bold text-center my-6">{name}</h1>
