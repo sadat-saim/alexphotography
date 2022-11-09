@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import ServiceCard from "./common/ServiceCard/ServiceCard";
 import Slide from "./common/Slide";
 
@@ -16,7 +16,7 @@ const Home = () => {
   console.log(services);
   return (
     <div>
-      <div className="carousel w-full h-[85vh] relative">
+      <div className="carousel w-full h-[100vh] relative">
         {slider.map((img, i) => {
           if (i === slider.length - 1) {
             return (
@@ -50,11 +50,16 @@ const Home = () => {
           );
         })}
       </div>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-3 px-3">
         {services.map((service) => (
           <ServiceCard key={service._id} service={service}></ServiceCard>
         ))}
       </div>
+      <Link to="/services">
+        <button className="btn block mx-auto my-3 bg-gradient-to-tr from-orange-400 to-orange-500 border-none rounded-md">
+          See all services
+        </button>
+      </Link>
     </div>
   );
 };
