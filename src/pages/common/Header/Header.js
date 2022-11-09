@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const menu = (
@@ -60,7 +61,9 @@ const Header = () => {
             {menu}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
+          Alex Photography
+        </Link>
       </div>
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menu}</ul>
