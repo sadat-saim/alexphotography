@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const { signin, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
+  const loaction = useLocation();
+  // eslint-disable-next-line no-restricted-globals
+  let from = location.state?.from?.pathname || "/";
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -16,7 +19,7 @@ const Login = () => {
       .then((res) => {
         console.log(res.user);
         toast.success("Logged in successfully");
-        navigate("/");
+        navigate(from);
       })
       .catch((err) => toast.error(`${err.message}`));
   };

@@ -38,7 +38,7 @@ const Header = () => {
             </div>
           </li>
           <li className="cursor-pointer">
-            <Link>My reviews</Link>
+            <Link to="/myreviews">My reviews</Link>
           </li>
           <li className="cursor-pointer">
             <Link to="/addservice">Add Service</Link>
