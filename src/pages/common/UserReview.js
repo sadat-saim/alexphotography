@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const UserReview = ({ reviewObj, handleDeteleReview, handleUpdateReview }) => {
-  const { name, review, photoURL, date, _id } = reviewObj;
+  const { name, review, photoURL, date, _id, serviceName } = reviewObj;
   const [msg, setMsg] = useState("");
   return (
     <div>
@@ -24,7 +24,11 @@ const UserReview = ({ reviewObj, handleDeteleReview, handleUpdateReview }) => {
           </div>
         </div>
         <div className="p-4 space-y-2 text-sm text-gray-800">
-          <p>{review}</p>
+          <p>
+            Service name:
+            <span className="font-bold text-lg ml-2">{serviceName} </span>
+          </p>
+          <p>review: {review}</p>
         </div>
         <span className="my-3 flex justify-between pt-3">
           <label htmlFor={_id} className="btn btn-circle">

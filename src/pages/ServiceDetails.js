@@ -4,6 +4,8 @@ import { AuthContext } from "../contexts/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 import ReviewCard from "./common/ReviewCard";
 import useTitle from "../utils/useTitle";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 
 const ServiceDetails = () => {
   const service = useLoaderData();
@@ -34,6 +36,7 @@ const ServiceDetails = () => {
     const reviewObj = {
       photoURL: user.photoURL,
       name: user.displayName,
+      serviceName: name,
       review: review,
       email: user.email,
       serviceId: _id,
@@ -71,7 +74,16 @@ const ServiceDetails = () => {
   return (
     <div>
       <h1 className="text-4xl font-bold text-center my-6">{name}</h1>
-      <img src={picture} alt={name} className="w-full h-[50vh] object-cover" />
+      <PhotoProvider>
+        <PhotoView src={picture}>
+          <img
+            src={picture}
+            alt={name}
+            className="w-full h-[50vh] object-cover"
+          />
+        </PhotoView>
+      </PhotoProvider>
+
       <h2 className="text-orange-500 text-center font-semibold text-xl mt-3">
         Price: ${price}
       </h2>
