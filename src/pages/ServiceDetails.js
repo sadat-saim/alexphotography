@@ -15,10 +15,9 @@ const ServiceDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://alex-photography-server-eta.vercel.app/review/${_id}`)
+    fetch(`https://alex-photography-server-sadat-saim.vercel.app/review/${_id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setReviews(data);
         setLoading(false);
       })
@@ -42,7 +41,7 @@ const ServiceDetails = () => {
     };
 
     fetch(
-      `https://alex-photography-server-eta.vercel.app/review?email=${user.email}`,
+      `https://alex-photography-server-sadat-saim.vercel.app/review?email=${user.email}`,
       {
         method: "POST",
         headers: {
@@ -57,10 +56,8 @@ const ServiceDetails = () => {
           setReviews([reviewObj, ...reviews]);
           toast.success("review added successfully");
         }
-        console.log(data);
       })
       .catch((err) => toast.error(`${err.message}`));
-    console.log(reviewObj);
   };
 
   if (loading) {
@@ -84,12 +81,12 @@ const ServiceDetails = () => {
       <div>
         <div>
           {user ? (
-            <form onSubmit={handleReview}>
+            <form onSubmit={handleReview} className="px-3">
               <textarea
                 name="review"
                 className="textarea textarea-bordered block mx-auto mt-6"
                 placeholder="Add a review"
-                cols="60"
+                cols="45"
               ></textarea>
               <button type="submit" className="btn block mx-auto mt-3">
                 post

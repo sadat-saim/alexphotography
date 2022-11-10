@@ -12,11 +12,14 @@ const MyReview = () => {
   const loaction = useLocation();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/review?email=${user.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      `https://alex-photography-server-sadat-saim.vercel.app/review?email=${user.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           signout()
@@ -32,35 +35,37 @@ const MyReview = () => {
       })
       .then((data) => {
         setUserReview(data);
-        console.log(data);
       });
   }, []);
 
   const handleDeteleReview = (id) => {
-    console.log(id);
-    fetch(`https://alex-photography-server-eta.vercel.app/review/${id}`, {
-      method: "DELETE",
-    })
+    fetch(
+      `https://alex-photography-server-sadat-saim.vercel.app/review/${id}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount === 1) {
           const reviews = userReview.filter((r) => r._id !== id);
-          console.log(reviews);
           setUserReview([...reviews]);
           toast.success("Deleted successfully");
         }
-        console.log(data);
       })
       .catch((err) => toast.error(`${err.message}`));
   };
   const handleUpdateReview = (id, msg) => {
-    fetch(`https://alex-photography-server-eta.vercel.app/review/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ msg }),
-    })
+    fetch(
+      `https://alex-photography-server-sadat-saim.vercel.app/review/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ msg }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.matchedCount === 1) {
@@ -68,11 +73,8 @@ const MyReview = () => {
           const updatedReview = userReview.filter((r) => r._id === id);
           updatedReview[0].review = msg;
           setUserReview([...updatedReview, ...prevReviews]);
-          console.log(prevReviews, "prev rev");
-          console.log(updatedReview, "updated rev");
           toast.success("Updated successfully");
         }
-        console.log(data);
       })
       .catch((err) => toast.error(`${err.message}`));
   };

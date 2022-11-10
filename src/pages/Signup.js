@@ -23,10 +23,9 @@ const Signup = () => {
     const photoURL = e.target.photoURL.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, email, photoURL, password);
+
     signup(email, password)
       .then((res) => {
-        console.log(res.user);
         toast.success("Signed up successfully");
         const info = {
           displayName: name,

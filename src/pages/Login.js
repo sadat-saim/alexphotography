@@ -20,13 +20,12 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+
     signin(email, password)
       .then((res) => {
-        console.log(res.user);
         const user = res.user;
         toast.success("Logged in successfully");
-        fetch("http://localhost:4000/jwt", {
+        fetch("https://alex-photography-server-sadat-saim.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -35,7 +34,6 @@ const Login = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             localStorage.setItem("token", data.token);
           })
           .catch((err) => toast.error(`${err.message}`));

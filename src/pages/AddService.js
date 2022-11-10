@@ -11,7 +11,7 @@ const AddService = () => {
     const picture = e.target.photoURL.value;
     const price = e.target.price.value;
     const details = e.target.details.value;
-    fetch("https://alex-photography-server-eta.vercel.app/services", {
+    fetch("https://alex-photography-server-sadat-saim.vercel.app/services", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,14 +20,12 @@ const AddService = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.acknowledged) {
           toast.success("Service created successfully");
         }
         e.target.reset();
       })
       .catch((err) => toast.error(`${err.message}`));
-    console.log({ name, picture, price, details });
   };
   return (
     <div>
