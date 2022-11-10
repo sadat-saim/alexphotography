@@ -28,12 +28,22 @@ const Header = () => {
       )}
       {user && (
         <>
+          <li className="avatar">
+            <div className="w-10 h-10 rounded-full p-0 my-auto">
+              <img
+                src={user.photoURL}
+                className="w-full h-full object-cover rounded-full"
+                alt={user.displayName}
+              />
+            </div>
+          </li>
           <li className="cursor-pointer">
             <Link>My reviews</Link>
           </li>
           <li className="cursor-pointer">
-            <Link>Add Service</Link>
+            <Link to="/addservice">Add Service</Link>
           </li>
+
           <li onClick={handleSignout} className="cursor-pointer">
             <Link>Sign out</Link>
           </li>
