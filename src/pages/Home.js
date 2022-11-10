@@ -13,7 +13,6 @@ const slider = [
 const Home = () => {
   const services = useLoaderData();
 
-  console.log(services);
   return (
     <div>
       <div className="carousel w-full h-[100vh] relative">

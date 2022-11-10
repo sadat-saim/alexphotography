@@ -21,14 +21,14 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        setUser(user);
+        setUser(currentUser);
+        console.log(user);
       } else {
         setUser(null);
       }
-
-      return () => unsubscribe();
     });
-  }, []);
+    return () => unsubscribe();
+  }, [auth]);
 
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);

@@ -1,15 +1,44 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
 
 const Header = () => {
+  const { user, signout } = useContext(AuthContext);
+
+  const handleSignout = () => {
+    signout()
+      .then(() => {
+        toast.success("Signed out successfully");
+      })
+      .catch((err) => toast.error(`${err.message}`));
+  };
+
   const menu = (
     <>
-      <li>
-        <Link to="/login">Log in</Link>
-      </li>
-      <li>
-        <Link to="/signup">Sign up</Link>
-      </li>
+      {!user && (
+        <>
+          <li>
+            <Link to="/login">Log in</Link>
+          </li>
+          <li>
+            <Link to="/signup">Sign up</Link>
+          </li>
+        </>
+      )}
+      {user && (
+        <>
+          <li className="cursor-pointer">
+            <Link>My reviews</Link>
+          </li>
+          <li className="cursor-pointer">
+            <Link>Add Service</Link>
+          </li>
+          <li onClick={handleSignout} className="cursor-pointer">
+            <Link>Sign out</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -46,6 +75,7 @@ const Header = () => {
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menu}</ul>
       </div>
+      <Toaster />
     </div>
   );
 };

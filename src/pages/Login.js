@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
-  const { signin } = useContext(AuthContext);
+  const { signin, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSignin = (e) => {
@@ -16,6 +16,14 @@ const Login = () => {
       .then((res) => {
         console.log(res.user);
         toast.success("Logged in successfully");
+        navigate("/");
+      })
+      .catch((err) => toast.error(`${err.message}`));
+  };
+  const handleGoogleSignin = () => {
+    googleSignIn()
+      .then(() => {
+        toast.success("Signed in successfully");
         navigate("/");
       })
       .catch((err) => toast.error(`${err.message}`));
@@ -64,9 +72,16 @@ const Login = () => {
                 >
                   Login
                 </button>
+                <hr />
               </div>
             </div>
           </form>
+          <button
+            onClick={handleGoogleSignin}
+            className="btn btn-outline mx-8 mb-6 -mt-3"
+          >
+            Log in With google
+          </button>
         </div>
       </div>
       <Toaster />
