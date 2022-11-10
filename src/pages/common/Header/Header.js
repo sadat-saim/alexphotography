@@ -49,6 +49,9 @@ const Header = () => {
           </li>
         </>
       )}
+      <li className="cursor-pointer">
+        <Link to="/blogs">Blogs</Link>
+      </li>
     </>
   );
   return (

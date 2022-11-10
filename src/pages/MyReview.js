@@ -34,7 +34,12 @@ const MyReview = () => {
       .catch((err) => toast.error(`${err.message}`));
   };
 
-  if (!userReview) return <div>No reviews found</div>;
+  if (!userReview || userReview.length === 0)
+    return (
+      <div className="w-full h-[80vh] grid place-content-center">
+        No reviews found
+      </div>
+    );
   return (
     <div className="my-3 grid grid-cols-3 mx-3 gap-3">
       {userReview?.map((reviewObj) => (
