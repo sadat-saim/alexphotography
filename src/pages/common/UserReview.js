@@ -1,7 +1,7 @@
 import React from "react";
 
-const UserReview = ({ reviewObj }) => {
-  const { name, review, photoURL, date } = reviewObj;
+const UserReview = ({ reviewObj, handleDeteleReview }) => {
+  const { name, review, photoURL, date, _id } = reviewObj;
 
   return (
     <div>
@@ -30,7 +30,12 @@ const UserReview = ({ reviewObj }) => {
           <label htmlFor="my-modal-6" className="btn btn-circle">
             ✍️
           </label>
-          <button className="btn btn-circle">🗑️</button>
+          <button
+            className="btn btn-circle"
+            onClick={() => handleDeteleReview(_id)}
+          >
+            🗑️
+          </button>
         </span>
       </div>
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />

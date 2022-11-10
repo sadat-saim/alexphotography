@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import UserReview from "./common/UserReview";
+import toast, { Toaster } from "react-hot-toast";
 
 const MyReview = () => {
   const { user } = useContext(AuthContext);
@@ -14,12 +15,36 @@ const MyReview = () => {
         console.log(data);
       });
   }, []);
+
+  const handleDeteleReview = (id) => {
+    console.log(id);
+    fetch(`http://localhost:4000/review/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount === 1) {
+          const reviews = userReview.filter((r) => r._id !== id);
+          console.log(reviews);
+          setUserReview([...reviews]);
+          toast.success("Deleted successfully");
+        }
+        console.log(data);
+      })
+      .catch((err) => toast.error(`${err.message}`));
+  };
+
   if (!userReview) return <div>No reviews found</div>;
   return (
     <div className="my-3 grid grid-cols-3 mx-3 gap-3">
-      {userReview.map((reviewObj) => (
-        <UserReview key={reviewObj._id} reviewObj={reviewObj}></UserReview>
+      {userReview?.map((reviewObj) => (
+        <UserReview
+          key={reviewObj._id}
+          reviewObj={reviewObj}
+          handleDeteleReview={handleDeteleReview}
+        ></UserReview>
       ))}
+      <Toaster />
     </div>
   );
 };
