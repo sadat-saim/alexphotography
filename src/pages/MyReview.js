@@ -3,15 +3,33 @@ import { AuthContext } from "../contexts/AuthProvider";
 import UserReview from "./common/UserReview";
 import toast, { Toaster } from "react-hot-toast";
 import useTitle from "../utils/useTitle";
+import { Navigate, useLocation } from "react-router-dom";
 
 const MyReview = () => {
-  const { user } = useContext(AuthContext);
+  const { user, signout } = useContext(AuthContext);
   const [userReview, setUserReview] = useState([]);
   useTitle("My Reviews");
+  const loaction = useLocation();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/review?email=${user.email}`)
-      .then((res) => res.json())
+    fetch(`http://localhost:4000/review?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signout()
+            .then(() => {
+              localStorage.removeItem("token");
+              return (
+                <Navigate to="/login" state={{ from: loaction }} replace />
+              );
+            })
+            .catch((err) => toast.error(`${err.message}`));
+        }
+        return res.json();
+      })
       .then((data) => {
         setUserReview(data);
         console.log(data);
@@ -20,7 +38,7 @@ const MyReview = () => {
 
   const handleDeteleReview = (id) => {
     console.log(id);
-    fetch(`http://localhost:4000/review/${id}`, {
+    fetch(`https://alex-photography-server-eta.vercel.app/review/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -36,7 +54,7 @@ const MyReview = () => {
       .catch((err) => toast.error(`${err.message}`));
   };
   const handleUpdateReview = (id, msg) => {
-    fetch(`http://localhost:4000/review/${id}`, {
+    fetch(`https://alex-photography-server-eta.vercel.app/review/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +84,7 @@ const MyReview = () => {
       </div>
     );
   return (
-    <div className="my-3 grid grid-cols-3 mx-3 gap-3">
+    <div className="my-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-3 gap-3">
       {userReview?.map((reviewObj, idx) => (
         <UserReview
           key={reviewObj?.serviceId + idx}

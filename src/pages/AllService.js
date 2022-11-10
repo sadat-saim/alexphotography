@@ -8,7 +8,7 @@ const AllService = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:4000/all")
+    fetch("https://alex-photography-server-eta.vercel.app/all")
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
@@ -27,9 +27,9 @@ const AllService = () => {
 
   return (
     <div>
-      <h1 className="text-4xl my-3 text-orange-400 text-center font-bold">
+      <h2 className="text-2xl text-center font-bold mt-10 uppercase border-b-2 pb-3">
         All Services
-      </h1>
+      </h2>
       <div className="grid grid-cols-3 gap-3 px-3">
         {services?.map((service) => (
           <ServiceCard key={service._id} service={service}></ServiceCard>

@@ -18,18 +18,22 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: async () => fetch("http://localhost:4000/"),
+        loader: async () =>
+          fetch("https://alex-photography-server-eta.vercel.app/"),
       },
       {
         path: "/services",
         element: <AllService></AllService>,
-        loader: async () => fetch("http://localhost:4000/all"),
+        loader: async () =>
+          fetch("https://alex-photography-server-eta.vercel.app/all"),
       },
       {
         path: "/services/:id",
         element: <ServiceDetails></ServiceDetails>,
         loader: async ({ params }) =>
-          fetch(`http://localhost:4000/services/${params.id}`),
+          fetch(
+            `https://alex-photography-server-eta.vercel.app/services/${params.id}`
+          ),
       },
       {
         path: "/login",

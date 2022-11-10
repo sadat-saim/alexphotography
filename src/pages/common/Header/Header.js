@@ -9,6 +9,7 @@ const Header = () => {
   const handleSignout = () => {
     signout()
       .then(() => {
+        localStorage.removeItem("token");
         toast.success("Signed out successfully");
       })
       .catch((err) => toast.error(`${err.message}`));

@@ -51,7 +51,10 @@ const Home = () => {
           );
         })}
       </div>
-      <div className="grid grid-cols-3 gap-3 px-3">
+      <h2 className="text-2xl text-center font-bold mt-10 uppercase border-b-2 pb-3">
+        Services
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 px-3">
         {services.map((service) => (
           <ServiceCard key={service._id} service={service}></ServiceCard>
         ))}
@@ -61,6 +64,62 @@ const Home = () => {
           See all services
         </button>
       </Link>
+      <div>
+        <h2 className="text-2xl text-center font-bold mt-10 uppercase border-b-2 pb-3">
+          Gallery
+        </h2>
+        <section className="py-6">
+          <div className="container flex flex-col justify-center p-4 mx-auto">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 sm:grid-cols-2">
+              <img
+                className="object-cover w-full dark:bg-gray-500 aspect-square"
+                src="https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+              <img
+                className="object-cover w-full dark:bg-gray-500 aspect-square"
+                src="https://images.pexels.com/photos/1573007/pexels-photo-1573007.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+              <img
+                className="object-cover w-full dark:bg-gray-500 aspect-square"
+                src="https://images.pexels.com/photos/1024968/pexels-photo-1024968.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+              <img
+                className="object-cover w-full dark:bg-gray-500 aspect-square"
+                src="https://images.pexels.com/photos/1488318/pexels-photo-1488318.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+      <div>
+        <div className="w-full dark:bg-gray-500 cta">
+          <div className="container flex flex-col flex-wrap content-center justify-center p-4 py-20 mx-auto md:p-10">
+            <h1 className="text-5xl antialiased font-semibold leading-none text-center dark:text-gray-100">
+              Get Our Updates
+            </h1>
+            <p className="pt-2 pb-8 text-xl antialiased text-center dark:text-gray-100">
+              Find out about events and other news
+            </p>
+            <div className="flex flex-row">
+              <input
+                type="text"
+                placeholder="example@email.com"
+                className="w-3/5 p-3 rounded-l-lg sm:w-2/3"
+              />
+              <button
+                type="button"
+                className="w-2/5 p-3 font-semibold rounded-r-lg sm:w-1/3 bg-gradient-to-tr text-white from-orange-400 to-orange-500 border-none"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

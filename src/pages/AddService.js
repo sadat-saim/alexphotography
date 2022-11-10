@@ -11,7 +11,7 @@ const AddService = () => {
     const picture = e.target.photoURL.value;
     const price = e.target.price.value;
     const details = e.target.details.value;
-    fetch("http://localhost:4000/services", {
+    fetch("https://alex-photography-server-eta.vercel.app/services", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

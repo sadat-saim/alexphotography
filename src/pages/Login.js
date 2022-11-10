@@ -9,8 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
   const loaction = useLocation();
   const [loading, setLoading] = useState(true);
-  // eslint-disable-next-line no-restricted-globals
-  let from = location.state?.from?.pathname || "/";
+  let from = loaction.state?.from?.pathname || "/";
   useTitle("Login");
 
   useEffect(() => {
@@ -25,7 +24,21 @@ const Login = () => {
     signin(email, password)
       .then((res) => {
         console.log(res.user);
+        const user = res.user;
         toast.success("Logged in successfully");
+        fetch("http://localhost:4000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ user: user.email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem("token", data.token);
+          })
+          .catch((err) => toast.error(`${err.message}`));
         navigate(from);
       })
       .catch((err) => toast.error(`${err.message}`));

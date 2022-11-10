@@ -15,7 +15,7 @@ const ServiceDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/review/${_id}`)
+    fetch(`https://alex-photography-server-eta.vercel.app/review/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -41,13 +41,16 @@ const ServiceDetails = () => {
       date: Date.now(),
     };
 
-    fetch(`http://localhost:4000/review?email=${user.email}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reviewObj),
-    })
+    fetch(
+      `https://alex-photography-server-eta.vercel.app/review?email=${user.email}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reviewObj),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
@@ -102,7 +105,7 @@ const ServiceDetails = () => {
             </p>
           )}
           <h2 className="text-lg font-bold my-3 text-center">Reviews</h2>
-          <div className="grid grid-cols-3 px-3 my-6 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-3 my-6 gap-3">
             {reviews.map((reviewObj, idx) => (
               <ReviewCard
                 key={reviewObj.serviceId + idx}
