@@ -43,8 +43,23 @@ const Login = () => {
   };
   const handleGoogleSignin = () => {
     googleSignIn()
-      .then(() => {
+      .then((res) => {
         toast.success("Signed in successfully");
+        const user = res.user;
+        toast.success("Logged in successfully");
+        fetch("https://alex-photography-server-sadat-saim.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ user: user.email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("token", data.token);
+          })
+          .catch((err) => toast.error(`${err.message}`));
+        navigate(from);
         navigate("/");
       })
       .catch((err) => toast.error(`${err.message}`));
