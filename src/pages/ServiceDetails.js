@@ -3,12 +3,16 @@ import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 import ReviewCard from "./common/ReviewCard";
+import useTitle from "../utils/useTitle";
 
 const ServiceDetails = () => {
   const service = useLoaderData();
   const { details, name, picture, price, _id } = service;
   const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
+  useTitle("Service Details");
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`http://localhost:4000/review/${_id}`)
@@ -16,6 +20,7 @@ const ServiceDetails = () => {
       .then((data) => {
         console.log(data);
         setReviews(data);
+        setLoading(false);
       })
       .catch((err) => toast.error(`${err.message}`));
   }, []);
@@ -54,6 +59,14 @@ const ServiceDetails = () => {
       .catch((err) => toast.error(`${err.message}`));
     console.log(reviewObj);
   };
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen grid place-content-center">
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+      </div>
+    );
+  }
 
   return (
     <div>

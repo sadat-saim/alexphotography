@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import useTitle from "../utils/useTitle";
 import ServiceCard from "./common/ServiceCard/ServiceCard";
 import Slide from "./common/Slide";
 
@@ -12,6 +13,7 @@ const slider = [
 
 const Home = () => {
   const services = useLoaderData();
+  useTitle("Home");
 
   return (
     <div>

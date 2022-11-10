@@ -1,14 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
+import useTitle from "../utils/useTitle";
 
 const Login = () => {
   const { signin, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const loaction = useLocation();
+  const [loading, setLoading] = useState(true);
   // eslint-disable-next-line no-restricted-globals
   let from = location.state?.from?.pathname || "/";
+  useTitle("Login");
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -31,6 +38,15 @@ const Login = () => {
       })
       .catch((err) => toast.error(`${err.message}`));
   };
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen grid place-content-center">
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">

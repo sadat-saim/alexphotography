@@ -1,7 +1,10 @@
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
+import useTitle from "../utils/useTitle";
 
 const AddService = () => {
+  useTitle("Add service");
+
   const handleAddService = (e) => {
     e.preventDefault();
     const name = e.target.name.value;

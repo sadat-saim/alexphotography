@@ -1,13 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
+import useTitle from "../utils/useTitle";
 
 const Signup = () => {
   const { signup, updateprofile, signout } = useContext(AuthContext);
   const navigate = useNavigate();
+  useTitle("Sign up");
+
+  const [loading, setLoading] = useState(true);
 
   const errorHandler = (err) => toast.error(`${err.message}`);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -36,6 +44,15 @@ const Signup = () => {
       })
       .catch((err) => errorHandler(err));
   };
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen grid place-content-center">
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div>
