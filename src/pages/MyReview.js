@@ -35,6 +35,29 @@ const MyReview = () => {
       })
       .catch((err) => toast.error(`${err.message}`));
   };
+  const handleUpdateReview = (id, msg) => {
+    fetch(`http://localhost:4000/review/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ msg }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.matchedCount === 1) {
+          const prevReviews = userReview.filter((r) => r._id !== id);
+          const updatedReview = userReview.filter((r) => r._id === id);
+          updatedReview[0].review = msg;
+          setUserReview([...updatedReview, ...prevReviews]);
+          console.log(prevReviews, "prev rev");
+          console.log(updatedReview, "updated rev");
+          toast.success("Updated successfully");
+        }
+        console.log(data);
+      })
+      .catch((err) => toast.error(`${err.message}`));
+  };
 
   if (!userReview || userReview.length === 0)
     return (
@@ -44,11 +67,12 @@ const MyReview = () => {
     );
   return (
     <div className="my-3 grid grid-cols-3 mx-3 gap-3">
-      {userReview?.map((reviewObj) => (
+      {userReview?.map((reviewObj, idx) => (
         <UserReview
-          key={reviewObj._id}
+          key={reviewObj?.serviceId + idx}
           reviewObj={reviewObj}
           handleDeteleReview={handleDeteleReview}
+          handleUpdateReview={handleUpdateReview}
         ></UserReview>
       ))}
       <Toaster />
